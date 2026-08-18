@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conto alla Rovescia per Vita Mij 🐳❤️</title>
+    <!-- Google Fonts Cozy & Cute -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Nunito:wght@600;700;800;900&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-sky: #dff4fc;
+            --bg-ocean: #c7ebf9;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --orca-black: #2b303a;
+            --soft-pink: #ffb7b2;
+            --deep-pink: #ff6b8b;
+            --pastel-blue: #72b4eb;
+            --cozy-text: #415a77;
+            --cozy-dark: #1e3a5f;
+            --accent-gold: #ffd166;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #e3f5fc 0%, #d2f0fa 50%, #b8e6f7 100%);
+            font-family: 'Nunito', 'Quicksand', sans-serif;
+            color: var(--cozy-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Bolle fluttuanti animate sullo sfondo */
+        .bubble {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.3) 65%, rgba(184, 225, 242, 0.5) 100%);
+            box-shadow: 0 4px 15px rgba(114, 180, 235, 0.25), inset -2px -2px 6px rgba(114, 180, 235, 0.3);
+            pointer-events: none;
+            z-index: 1;
+            animation: floatBubble 10s infinite linear;
+        }
+
+        @keyframes floatBubble {
+            0% {
+                transform: translateY(105vh) scale(0.6);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.85;
+            }
+            85% {
+                opacity: 0.85;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1.15);
+                opacity: 0;
+            }
+        }
+
+        /* Card Principale Cozy */
+        .cozy-card {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 640px;
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 4px solid #ffffff;
+            border-radius: 44px;
+            box-shadow: 
+                0 20px 50px rgba(78, 147, 185, 0.22),
+                0 8px 0px #b2dcf0,
+                inset 0 0 25px rgba(255, 255, 255, 0.9);
+            padding: 40px 28px 36px 28px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Badge in alto */
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff0f3;
+            color: #d6336c;
+            font-size: 0.95rem;
+            font-weight: 800;
+            padding: 8px 22px;
+            border-radius: 30px;
+            border: 2px solid #ffccd5;
+            box-shadow: 0 4px 12px rgba(255, 107, 139, 0.15);
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+            animation: pulseSoft 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseSoft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-family: 'Gaegu', cursive, sans-serif;
+            font-size: clamp(2.3rem, 6vw, 3.4rem);
+            line-height: 1.15;
+            color: #1e3a5f;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.9);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #557b97;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Display dell'Orchetta */
+        .orca-stage {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 5px auto 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .orca-glow-circle {
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            background: radial-gradient(circle, #ffffff 40%, #e1f5fe 80%, #b3e5fc 100%);
+            border-radius: 50%;
+            border: 4px dashed #90caf9;
+            box-shadow: 0 12px 25px rgba(114, 180, 235, 0.35);
+            animation: rotateDashed 35s linear infinite;
+        }
+
+        @keyframes rotateDashed {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .orca-img {
+            position: relative;
+            z-index: 2;
+            width: 175px;
+            height: auto;
+            filter: drop-shadow(0 8px 16px rgba(30, 58, 95, 0.18));
+            animation: orcaBob 3.6s ease-in-out infinite;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .orca-stage:hover .orca-img {
+            transform: scale(1.1) rotate(3deg);
+        }
+
+        .orca-stage:active .orca-img {
+            transform: scale(0.95);
+        }
+
+        @keyframes orcaBob {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(-2deg);
+            }
+        }
+
+        /* Fumetto con i messaggi carini */
+        .speech-bubble {
+            position: absolute;
+            top: -15px;
+            right: -25px;
+            background: #ffffff;
+            color: #d6336c;
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 18px;
+            border: 2px solid #ffccd5;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            z-index: 5;
+            pointer-events: none;
+            animation: bounceSmall 2.2s infinite ease-in-out;
+            white-space: nowrap;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 18px;
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: #ffffff transparent;
+            display: block;
+            width: 0;
+        }
+
+        @keyframes bounceSmall {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Griglia del Conto alla Rovescia */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .time-card {
+            background: #ffffff;
+            border: 3px solid #d4edf9;
+            border-radius: 24px;
+            padding: 16px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(114, 180, 235, 0.16), 0 4px 0 #bde3f7;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .time-card:hover {
+            transform: translateY(-5px);
+            border-color: #90caf9;
+            box-shadow: 0 12px 24px rgba(114, 180, 235, 0.25), 0 4px 0 #72b4eb;
+        }
+
+        .time-number {
+            font-family: 'Gaegu', cursive, sans-serif;
+            font-size: clamp(2.3rem, 6vw, 3.4rem);
+            font-weight: 700;
+            color: #1e3a5f;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        .time-label {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #7d9bb4;
+        }
+
+        /* Box Descrittivo */
+        .event-box {
+            background: #fdfaf6;
+            border: 2px dashed #ffccd5;
+            border-radius: 22px;
+            padding: 16px 20px;
+            width: 100%;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .event-date {
+            font-weight: 900;
+            color: #e63946;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .event-desc {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #5c6b73;
+            line-height: 1.45;
+        }
+
+        /* Suggerimento interattivo */
+        .hint-text {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #8da4b8;
+            margin-top: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .hint-text:hover {
+            background: rgba(255, 255, 255, 0.6);
+            color: #d6336c;
+        }
+
+        /* Cuori volanti al click */
+        .hearts-pop-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .click-heart {
+            position: absolute;
+            font-size: 24px;
+            animation: popAndFly 1.2s forwards ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes popAndFly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.6) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x-dest), -100px) scale(1.4) rotate(var(--r-dest));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .cozy-card {
+                padding: 30px 18px 26px 18px;
+                border-radius: 34px;
+            }
+            .countdown-grid {
+                gap: 8px;
+            }
+            .time-card {
+                padding: 12px 4px;
+                border-radius: 18px;
+            }
+            .orca-stage {
+                width: 180px;
+                height: 180px;
+            }
+            .orca-glow-circle {
+                width: 170px;
+                height: 170px;
+            }
+            .orca-img {
+                width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenitore Bolle di Sfondo -->
+    <div id="bubbles-container"></div>
+    <div class="hearts-pop-container" id="hearts-container"></div>
+
+    <main class="cozy-card">
+        <!-- Badge -->
+        <div class="badge-pill">
+            <span>🎣</span> SI TORNA A CRINGIARE INSIEME <span>💕</span>
+        </div>
+
+        <!-- Titolo Dolce -->
+        <h1>Verso Vita Mij</h1>
+        <p class="subtitle">Il tempo che manca per riabbracciarti ✨</p>
+
+        <!-- Orchetta Centrale Interattiva -->
+        <div class="orca-stage" id="orcaBtn" title="Cliccami per mandarmi un po' d'amore!">
+            <div class="orca-glow-circle"></div>
+            <div class="speech-bubble" id="speechMsg">Ti voglio bene 💖</div>
+            <!-- Immagine dell'orchetta con cuore -->
+            <img class="orca-img" id="orcaImage" alt="Cute Orca Vita Mij" />
+        </div>
+
+        <!-- Numeri Conto alla Rovescia -->
+        <div class="countdown-grid">
+            <div class="time-card">
+                <span class="time-number" id="days">00</span>
+                <span class="time-label">Giorni</span>
+            </div>
+            <div class="time-card">
+                <span class="time-number" id="hours">00</span>
+                <span class="time-label">Ore</span>
+            </div>
+            <div class="time-card">
+                <span class="time-number" id="minutes">00</span>
+                <span class="time-label">Minuti</span>
+            </div>
+            <div class="time-card">
+                <span class="time-number" id="seconds">00</span>
+                <span class="time-label">Secondi</span>
+            </div>
+        </div>
+
+        <!-- Dettagli Evento -->
+        <div class="event-box">
+            <div class="event-date">
+                <span>🗓️</span> 21 Agosto 2026 alle 19:44
+            </div>
+            <p class="event-desc">
+                Arrivo a Pescara da <strong>Vita Mij</strong>! 🌊❤️
+            </p>
+        </div>
+
+        <!-- Suggerimento Click -->
+        <div class="hint-text" onclick="popHeartsFromOrca()">
+            <span>✨</span> Clicca sull'orchetta per mandarle cuoricini <span>❤️</span>
+        </div>
+    </main>
+
+    <script>
+        // Viene inserita via JavaScript o data URI
+        document.getElementById('orcaImage').src = "orca.png";
+
+        // DATA E ORA TARGET: 21 Agosto 2026 alle 19:44:00 (Mese 7 = Agosto)
+        const targetDate = new Date(2026, 7, 21, 19, 44, 0);
+
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const speechMsg = document.getElementById('speechMsg');
+        const orcaBtn = document.getElementById('orcaBtn');
+        const heartsContainer = document.getElementById('hearts-container');
+
+        const sweetMessages = [
+            "TVB 💖",
+            "Ogni secondo in meno è un secondo in più vicino a te ⏳",
+            "Vita Mij sei simpaticissima 🌸",
+            "Pronti per altri toast 🎣",
+            "Un abbraccio cetaceo 🐋",
+            "Il mio cuore è tuo 💕",
+            "Non vedo l'ora ✨",
+            "Insieme finalmente 🌊"
+        ];
+
+        let msgIdx = 0;
+
+        function formatZero(num) {
+            return num < 10 ? '0' + num : num;
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate.getTime() - now;
+
+            if (difference <= 0) {
+                daysEl.textContent = '00';
+                hoursEl.textContent = '00';
+                minutesEl.textContent = '00';
+                secondsEl.textContent = '00';
+                speechMsg.textContent = "Sono arrivato da te! 🎉❤️";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            daysEl.textContent = formatZero(days);
+            hoursEl.textContent = formatZero(hours);
+            minutesEl.textContent = formatZero(minutes);
+            secondsEl.textContent = formatZero(seconds);
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Cuoricini ed emoji animate al tocco
+        const heartEmojis = ['💖', '💕', '❤️', '🌸', '✨', '🐋', '🐟', '🌊', '💘'];
+
+        function createHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.className = 'click-heart';
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = (x - 12) + 'px';
+            heart.style.top = (y - 12) + 'px';
+            
+            const randomX = (Math.random() - 0.5) * 140 + 'px';
+            const randomRotate = (Math.random() - 0.5) * 60 + 'deg';
+            heart.style.setProperty('--x-dest', randomX);
+            heart.style.setProperty('--r-dest', randomRotate);
+
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 1200);
+        }
+
+        function popHeartsFromOrca() {
+            msgIdx = (msgIdx + 1) % sweetMessages.length;
+            speechMsg.textContent = sweetMessages[msgIdx];
+
+            const rect = orcaBtn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    createHeart(
+                        centerX + (Math.random() - 0.5) * 60,
+                        centerY + (Math.random() - 0.5) * 40
+                    );
+                }, i * 75);
+            }
+        }
+
+        orcaBtn.addEventListener('click', popHeartsFromOrca);
+
+        // Bollicine fluttuanti
+        const bubblesWrapper = document.getElementById('bubbles-container');
+        for (let i = 0; i < 16; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 24 + 12;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = (Math.random() * 100) + 'vw';
+            bubble.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            bubble.style.animationDelay = (Math.random() * 8) + 's';
+            bubblesWrapper.appendChild(bubble);
+        }
+    </script>
+</body>
+</html>
